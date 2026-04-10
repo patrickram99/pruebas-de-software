@@ -1,0 +1,254 @@
+%package list
+\documentclass{article}
+\usepackage[top=3cm, bottom=3cm, outer=3cm, inner=3cm]{geometry}
+\usepackage{graphicx}
+\usepackage{url}
+\usepackage{hyperref}
+\usepackage{array}
+\newcolumntype{x}[1]{>{\centering\arraybackslash\hspace{0pt}}p{#1}}
+\usepackage{natbib}
+\usepackage{pdfpages}
+\usepackage{multirow}
+\usepackage[T1]{fontenc}
+\usepackage{imakeidx}
+\usepackage{wrapfig}
+
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    filecolor=magenta,
+    urlcolor=blue,
+    pdftitle={Pruebas Mockito},
+    pdfpagemode=FullScreen,
+    }
+
+\urlstyle{same}
+
+\usepackage[normalem]{ulem}
+\useunder{\uline}{\ul}{}
+
+\usepackage{minted}
+
+\usepackage{listings}
+\usepackage{color, colortbl}
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+\definecolor{codebackground}{rgb}{0.95, 0.95, 0.92}
+\definecolor{tablebackground}{rgb}{0.0, 0.45, 0.63}
+\lstset{frame=tb,
+    language=bash,
+    aboveskip=3mm,
+    belowskip=3mm,
+    showstringspaces=false,
+    columns=flexible,
+    basicstyle={\small\ttfamily},
+    numbers=none,
+    numberstyle=\tiny\color{gray},
+    keywordstyle=\color{blue},
+    commentstyle=\color{dkgreen},
+    stringstyle=\color{mauve},
+    breaklines=true,
+    breakatwhitespace=true,
+    tabsize=3,
+    backgroundcolor= \color{codebackground},
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\csemail}{pramirezsa@ulasalle.edu.pe}
+\newcommand{\csdocente}{MSc. Luis Pati\~no Herrera}
+\newcommand{\cscurso}{Pruebas de Software}
+\newcommand{\csuniversidad}{Universidad La Salle}
+\newcommand{\csescuela}{Escuela Profesional de Ingenier\'ia de Software}
+\newcommand{\cspracnr}{02}
+\newcommand{\cstema}{Pruebas con Mockito}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage[english,spanish]{babel}
+\usepackage[utf8]{inputenc}
+\AtBeginDocument{\selectlanguage{spanish}}
+\renewcommand{\figurename}{Figura}
+\renewcommand{\refname}{Referencias}
+\renewcommand{\tablename}{Tabla}
+\AtBeginDocument{%
+    \renewcommand\tablename{Tabla}
+}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\setlength{\headheight}{30pt}
+\renewcommand{\headrulewidth}{1pt}
+\renewcommand{\footrulewidth}{1pt}
+\fancyhead[L]{\raisebox{-0.2\height}{\includegraphics[width=3cm]{logo_ulasalle (1).png}}}
+\fancyhead[C]{}
+\fancyhead[R]{\fontsize{7}{7}\selectfont    \csuniversidad \\ \csescuela \\ \textbf{\cscurso} }
+\fancyfoot[L]{}
+\fancyfoot[C]{Pruebas de Software}
+\fancyfoot[R]{P\'agina \thepage}
+
+\begin{document}
+
+    \vspace*{10px}
+
+    \begin{center}
+        \fontsize{17}{17} \textbf{ Pr\'actica \cspracnr}
+    \end{center}
+
+\renewcommand{\arraystretch}{1.5}
+\begin{table}[h]
+    \begin{tabular}{|x{4.7cm}|x{4.8cm}|x{4.8cm}|}
+        \hline
+        \textbf{DOCENTE} & \textbf{CARRERA}  & \textbf{CURSO}   \\
+        \hline
+        \csdocente & \csescuela & \cscurso    \\
+        \hline
+    \end{tabular}
+\end{table}
+
+\begin{table}[h]
+    \begin{tabular}{|x{4.7cm}|x{4.8cm}|x{4.8cm}|}
+        \hline
+        \textbf{GRUPO} & \textbf{TEMA}  & \textbf{DURACI\'ON}   \\
+        \hline
+        \ - & \cstema & -  \\
+        \hline
+    \end{tabular}
+\end{table}
+\renewcommand{\arraystretch}{1}
+
+    \section*{Integrantes}
+    \begin{itemize}
+        \item Patrick Andres Ramirez Santos
+    \end{itemize}
+
+    \section*{Repositorio}
+    C\'odigo fuente disponible en: \url{URL\_DEL\_REPOSITORIO\_GITHUB}
+
+    \tableofcontents
+
+\newpage
+
+%% ============================================================
+\section{Objetivo}
+Implementar el tutorial de Mockito de Vogella utilizando JUnit 5, demostrando el uso de mocks, stubs, verificaciones e inyecci\'on de dependencias en pruebas unitarias.
+
+Tutorial base: \url{https://www.vogella.com/tutorials/Mockito/article.html}
+
+%% ============================================================
+\section{Estructura del proyecto}
+
+El proyecto sigue la estructura est\'andar de Maven. Las clases fuente est\'an en \texttt{src/main/java/org/example/} y las pruebas en \texttt{src/test/java/org/example/}. Las dependencias principales son \texttt{mockito-core}, \texttt{mockito-junit-jupiter} y \texttt{junit-jupiter}.
+
+\begin{center}
+    \textit{Estructura del proyecto en el IDE o terminal}
+
+    %\includegraphics[width=0.8\linewidth]{PLACEHOLDER_ESTRUCTURA.png}
+    \textbf{[CAPTURA: estructura de carpetas del proyecto]}
+\end{center}
+
+%% ============================================================
+\section{Compilaci\'on}
+
+Se verifica que todo el c\'odigo fuente compile sin errores:
+
+\begin{minted}{bash}
+$ mvn compile
+\end{minted}
+
+\begin{center}
+    \textit{Compilaci\'on exitosa del proyecto}
+
+    %\includegraphics[width=0.9\linewidth]{PLACEHOLDER_COMPILE.png}
+    \textbf{[CAPTURA: mvn compile -- BUILD SUCCESS]}
+\end{center}
+
+%% ============================================================
+\section{Ejecuci\'on de pruebas}
+
+\subsection{Todas las pruebas}
+
+Se ejecutan las 6 pruebas del proyecto con:
+
+\begin{minted}{bash}
+$ mvn test
+\end{minted}
+
+\begin{center}
+    \textit{Ejecuci\'on de todas las pruebas (6 tests, 0 fallos)}
+
+    %\includegraphics[width=0.9\linewidth]{PLACEHOLDER_TEST_ALL.png}
+    \textbf{[CAPTURA: mvn test -- Tests run: 6, BUILD SUCCESS]}
+\end{center}
+
+\subsection{UserServiceTest -- Mocks y verificaciones}
+
+Prueba los conceptos b\'asicos: \texttt{@Mock}, \texttt{when/thenReturn} y \texttt{verify}. Se mockean \texttt{UserRepository} y \texttt{EmailService} para probar \texttt{registerUser()} sin dependencias reales.
+
+\begin{minted}{bash}
+$ mvn test -Dtest=UserServiceTest
+\end{minted}
+
+\begin{center}
+    \textit{UserServiceTest: mockeo de interfaces UserRepository y EmailService}
+
+    %\includegraphics[width=0.9\linewidth]{PLACEHOLDER_TEST_USER.png}
+    \textbf{[CAPTURA: mvn test -Dtest=UserServiceTest -- 2 tests passed]}
+\end{center}
+
+\subsection{VolumeUtilTests -- Mock inline y verifyNoMoreInteractions}
+
+Demuestra la creaci\'on de mocks con \texttt{mock()} (en l\'inea) y la verificaci\'on estricta con \texttt{verifyNoMoreInteractions} para asegurar que en modo silencioso no se modifica el volumen.
+
+\begin{minted}{bash}
+$ mvn test -Dtest=VolumeUtilTests
+\end{minted}
+
+\begin{center}
+    \textit{VolumeUtilTests: mock de AudioManager con verificaci\'on estricta}
+
+    %\includegraphics[width=0.9\linewidth]{PLACEHOLDER_TEST_VOLUME.png}
+    \textbf{[CAPTURA: mvn test -Dtest=VolumeUtilTests -- 2 tests passed]}
+\end{center}
+
+\subsection{ConfigureThreadingUtilTests -- verify con only()}
+
+Verifica que \texttt{configureThreadPool()} llame \'unicamente a \texttt{getNumberOfThreads()} usando \texttt{verify(app, only())}.
+
+\begin{minted}{bash}
+$ mvn test -Dtest=ConfigureThreadingUtilTests
+\end{minted}
+
+\begin{center}
+    \textit{ConfigureThreadingUtilTests: verificaci\'on con only() sobre MyApplication}
+
+    %\includegraphics[width=0.9\linewidth]{PLACEHOLDER_TEST_THREADING.png}
+    \textbf{[CAPTURA: mvn test -Dtest=ConfigureThreadingUtilTests -- 1 test passed]}
+\end{center}
+
+\subsection{ArticleManagerTest -- @InjectMocks}
+
+Demuestra inyecci\'on autom\'atica de mocks con \texttt{@InjectMocks}. Mockito inyecta \texttt{ArticleDatabase} y \texttt{User} en el constructor de \texttt{ArticleManager}.
+
+\begin{minted}{bash}
+$ mvn test -Dtest=ArticleManagerTest
+\end{minted}
+
+\begin{center}
+    \textit{ArticleManagerTest: inyecci\'on autom\'atica con @InjectMocks en ArticleManager}
+
+    %\includegraphics[width=0.9\linewidth]{PLACEHOLDER_TEST_ARTICLE.png}
+    \textbf{[CAPTURA: mvn test -Dtest=ArticleManagerTest -- 1 test passed]}
+\end{center}
+
+%% ============================================================
+\section{Conclusiones}
+\begin{itemize}
+    \item Se implement\'o el tutorial completo de Mockito con 4 clases de prueba y 6 tests.
+    \item \texttt{@Mock} y \texttt{when/thenReturn} permiten simular dependencias sin implementaciones reales.
+    \item \texttt{verify} y \texttt{verifyNoMoreInteractions} aseguran que los mocks se usen correctamente.
+    \item \texttt{@InjectMocks} simplifica la inyecci\'on de dependencias en las pruebas.
+\end{itemize}
+
+\end{document}
