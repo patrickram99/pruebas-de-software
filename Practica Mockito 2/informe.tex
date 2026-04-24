@@ -1,0 +1,228 @@
+%package list
+\documentclass{article}
+\usepackage[top=3cm, bottom=3cm, outer=3cm, inner=3cm]{geometry}
+\usepackage{graphicx}
+\usepackage{url}
+\usepackage{hyperref}
+\usepackage{array}
+\newcolumntype{x}[1]{>{\centering\arraybackslash\hspace{0pt}}p{#1}}
+\usepackage{natbib}
+\usepackage{pdfpages}
+\usepackage{multirow}
+\usepackage[T1]{fontenc}
+\usepackage{imakeidx}
+\usepackage{wrapfig}
+\usepackage{caption}
+\usepackage{float}
+
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    filecolor=magenta,
+    urlcolor=blue,
+    pdftitle={Pruebas Mockito 2},
+    pdfpagemode=FullScreen,
+}
+
+\urlstyle{same}
+
+\usepackage[normalem]{ulem}
+\useunder{\uline}{\ul}{}
+
+\usepackage{minted}
+
+\usepackage{listings}
+\usepackage{color, colortbl}
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+\definecolor{codebackground}{rgb}{0.95, 0.95, 0.92}
+\definecolor{tablebackground}{rgb}{0.0, 0.45, 0.63}
+
+\lstset{
+    frame=tb,
+    language=bash,
+    aboveskip=3mm,
+    belowskip=3mm,
+    showstringspaces=false,
+    columns=flexible,
+    basicstyle={\small\ttfamily},
+    numbers=none,
+    numberstyle=\tiny\color{gray},
+    keywordstyle=\color{blue},
+    commentstyle=\color{dkgreen},
+    stringstyle=\color{mauve},
+    breaklines=true,
+    breakatwhitespace=true,
+    tabsize=3,
+    backgroundcolor=\color{codebackground},
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\csemail}{pramirezsa@ulasalle.edu.pe}
+\newcommand{\csdocente}{MSc. Luis Pati\~no Herrera}
+\newcommand{\cscurso}{Pruebas de Software}
+\newcommand{\csuniversidad}{Universidad La Salle}
+\newcommand{\csescuela}{Escuela Profesional de Ingenier\'ia de Software}
+\newcommand{\cspracnr}{02}
+\newcommand{\cstema}{Pruebas con Mockito}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage[english,spanish]{babel}
+\usepackage[utf8]{inputenc}
+\AtBeginDocument{\selectlanguage{spanish}}
+\renewcommand{\figurename}{Figura}
+\renewcommand{\refname}{Referencias}
+\renewcommand{\tablename}{Tabla}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\setlength{\headheight}{30pt}
+\renewcommand{\headrulewidth}{1pt}
+\renewcommand{\footrulewidth}{1pt}
+
+\fancyhead[L]{\raisebox{-0.2\height}{\includegraphics[width=3cm]{logo_ulasalle (1).png}}}
+\fancyhead[R]{\fontsize{7}{7}\selectfont \csuniversidad \\ \csescuela \\ \textbf{\cscurso}}
+
+\fancyfoot[C]{Pruebas de Software}
+\fancyfoot[R]{P\'agina \thepage}
+
+\begin{document}
+
+\vspace*{10px}
+
+\begin{center}
+    \fontsize{17}{17} \textbf{ Pr\'actica \cspracnr}
+\end{center}
+
+\renewcommand{\arraystretch}{1.5}
+
+\begin{table}[h]
+\begin{tabular}{|x{4.7cm}|x{4.8cm}|x{4.8cm}|}
+\hline
+\textbf{DOCENTE} & \textbf{CARRERA} & \textbf{CURSO} \\
+\hline
+\csdocente & \csescuela & \cscurso \\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{table}[h]
+\begin{tabular}{|x{4.7cm}|x{4.8cm}|x{4.8cm}|}
+\hline
+\textbf{GRUPO} & \textbf{TEMA} & \textbf{DURACI\'ON} \\
+\hline
+- & \cstema & - \\
+\hline
+\end{tabular}
+\end{table}
+
+\renewcommand{\arraystretch}{1}
+
+\section*{Integrantes}
+\begin{itemize}
+    \item Patrick Andres Ramirez Santos
+\end{itemize}
+
+\section*{Repositorio}
+C\'odigo fuente disponible en: \url{https://github.com/patrickram99/pruebas-de-software/tree/main/practica2}
+
+\tableofcontents
+\newpage
+
+%% ============================================================
+\section{Objetivo}
+Implementar pruebas unitarias con JUnit 5 y Mockito para tres estructuras de datos: \texttt{BinaryTree}, \texttt{CircleLinkedList} y \texttt{DynamicArray}. Corregir errores encontrados en el c\'odigo fuente y validar el comportamiento mediante spies y verificaciones.
+
+%% ============================================================
+\section{Errores corregidos}
+
+Se identificaron y corrigieron los siguientes errores en el c\'odigo fuente:
+
+\begin{enumerate}
+    \item \textbf{BinaryTree.bfs}: El recorrido BFS agregaba el hijo derecho antes que el izquierdo, invirtiendo el orden esperado.
+    \item \textbf{CircleLinkedList (constructor)}: El nodo dummy no era circular; \texttt{head.next} era \texttt{null} en vez de apuntar a s\'i mismo.
+    \item \textbf{CircleLinkedList.remove}: La validaci\'on de l\'imites usaba \texttt{pos > size} en lugar de \texttt{pos >= size}, permitiendo acceso fuera de rango.
+    \item \textbf{DynamicArray.iterator}: Retornaba \texttt{Iterator} sin tipo gen\'erico en vez de \texttt{Iterator<E>}.
+    \item \textbf{DynamicArray.next}: La verificaci\'on de l\'imites usaba \texttt{>} en lugar de \texttt{>=}, permitiendo un acceso inv\'alido.
+\end{enumerate}
+
+%% ============================================================
+\section{Compilaci\'on}
+
+\begin{minted}{bash}
+$ mvn compile
+\end{minted}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.9\linewidth]{pruebas/compile.png}
+\caption{Compilaci\'on exitosa del proyecto}
+\end{figure}
+
+\newpage
+%% ============================================================
+\section{Ejecuci\'on de pruebas}
+
+\subsection{Todas las pruebas}
+
+\begin{minted}{bash}
+$ mvn test
+\end{minted}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.9\linewidth]{pruebas/all_tests.png}
+\caption{Ejecuci\'on de las 60 pruebas (BUILD SUCCESS)}
+\end{figure}
+
+\subsection{BinaryTreeTest}
+
+\begin{minted}{bash}
+$ mvn test -Dtest=BinaryTreeTest
+\end{minted}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.90\linewidth]{pruebas/binary_tree_test.png}
+\caption{20 pruebas: find, put, remove y spy con verify}
+\end{figure}
+
+\newpage
+\subsection{CircleLinkedListTest}
+
+\begin{minted}{bash}
+$ mvn test -Dtest=CircleLinkedListTest
+\end{minted}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.90\linewidth]{pruebas/circle_linked_list_test.png}
+\caption{17 pruebas: append, remove, toString y spy con verify}
+\end{figure}
+
+\subsection{DynamicArrayTest}
+
+\begin{minted}{bash}
+$ mvn test -Dtest=DynamicArrayTest
+\end{minted}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.90\linewidth]{pruebas/dynamic_array_test.png}
+\caption{23 pruebas: add, remove, iterator, stream y spy con verify}
+\end{figure}
+
+%% ============================================================
+\newpage
+\section{Conclusiones}
+\begin{itemize}
+    \item Se identificaron y corrigieron 5 errores en las estructuras de datos.
+    \item Se implementaron 60 pruebas unitarias con JUnit 5.
+    \item Se utiliz\'o Mockito (spy, verify, clearInvocations) para validar interacciones internas.
+    \item Todas las pruebas pasan exitosamente tras las correcciones.
+\end{itemize}
+
+\end{document}
