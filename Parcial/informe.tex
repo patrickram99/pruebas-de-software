@@ -1,0 +1,370 @@
+%package list
+\documentclass{article}
+\usepackage[top=3cm, bottom=3cm, outer=3cm, inner=3cm]{geometry}
+\usepackage{graphicx}
+\usepackage{url}
+\usepackage{hyperref}
+\usepackage{array}
+\newcolumntype{x}[1]{>{\centering\arraybackslash\hspace{0pt}}p{#1}}
+\usepackage{natbib}
+\usepackage{pdfpages}
+\usepackage{multirow}
+\usepackage[T1]{fontenc}
+\usepackage{imakeidx}
+\usepackage{wrapfig}
+\usepackage{caption}
+\usepackage{float}
+
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    filecolor=magenta,
+    urlcolor=blue,
+    pdftitle={Pruebas StringUtils JUnit Mockito},
+    pdfpagemode=FullScreen,
+}
+
+\urlstyle{same}
+
+\usepackage[normalem]{ulem}
+\useunder{\uline}{\ul}{}
+
+\usepackage{minted}
+
+\usepackage{listings}
+\usepackage{color, colortbl}
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+\definecolor{codebackground}{rgb}{0.95, 0.95, 0.92}
+\definecolor{tablebackground}{rgb}{0.0, 0.45, 0.63}
+
+\lstset{
+    frame=tb,
+    language=bash,
+    aboveskip=3mm,
+    belowskip=3mm,
+    showstringspaces=false,
+    columns=flexible,
+    basicstyle={\small\ttfamily},
+    numbers=none,
+    numberstyle=\tiny\color{gray},
+    keywordstyle=\color{blue},
+    commentstyle=\color{dkgreen},
+    stringstyle=\color{mauve},
+    breaklines=true,
+    breakatwhitespace=true,
+    tabsize=3,
+    backgroundcolor=\color{codebackground},
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\csemail}{pramirezsa@ulasalle.edu.pe}
+\newcommand{\csdocente}{MSc. Luis Pati\~no Herrera}
+\newcommand{\cscurso}{Pruebas de Software}
+\newcommand{\csuniversidad}{Universidad La Salle}
+\newcommand{\csescuela}{Escuela Profesional de Ingenier\'ia de Software}
+\newcommand{\cspracnr}{05}
+\newcommand{\cstema}{Pruebas unitarias de StringUtils con JUnit y Mockito}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage[english,spanish]{babel}
+\usepackage[utf8]{inputenc}
+\AtBeginDocument{\selectlanguage{spanish}}
+\renewcommand{\figurename}{Figura}
+\renewcommand{\refname}{Referencias}
+\renewcommand{\tablename}{Tabla}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\setlength{\headheight}{30pt}
+\renewcommand{\headrulewidth}{1pt}
+\renewcommand{\footrulewidth}{1pt}
+
+\fancyhead[L]{\raisebox{-0.2\height}{\includegraphics[width=3cm]{logo_ulasalle (1).png}}}
+\fancyhead[R]{\fontsize{7}{7}\selectfont \csuniversidad \\ \csescuela \\ \textbf{\cscurso}}
+
+\fancyfoot[C]{Pruebas de Software}
+\fancyfoot[R]{P\'agina \thepage}
+
+\begin{document}
+
+\vspace*{10px}
+
+\begin{center}
+    \fontsize{17}{17} \textbf{ Pr\'actica \cspracnr}
+\end{center}
+
+\renewcommand{\arraystretch}{1.5}
+
+\begin{table}[h]
+\begin{tabular}{|x{4.7cm}|x{4.8cm}|x{4.8cm}|}
+\hline
+\textbf{DOCENTE} & \textbf{CARRERA} & \textbf{CURSO} \\
+\hline
+\csdocente & \csescuela & \cscurso \\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{table}[h]
+\begin{tabular}{|x{4.7cm}|x{4.8cm}|x{4.8cm}|}
+\hline
+\textbf{GRUPO} & \textbf{TEMA} & \textbf{DURACI\'ON} \\
+\hline
+- & \cstema & - \\
+\hline
+\end{tabular}
+\end{table}
+
+\renewcommand{\arraystretch}{1}
+
+\section*{Integrantes}
+\begin{itemize}
+    \item Patrick Andres Ramirez Santos
+\end{itemize}
+
+\section*{Referencia}
+Documentaci\'on: \url{https://commons.apache.org/proper/commons-lang/apidocs/org/apache/commons/lang3/StringUtils.html}
+
+\tableofcontents
+\newpage
+
+%% ============================================================
+\section{Objetivo}
+Implementar 20 casos de prueba para la clase \texttt{StringUtils} de Apache Commons Lang3: 10 con JUnit 5 puro y 10 con Mockito (\texttt{MockedStatic}, ya que todos los m\'etodos de \texttt{StringUtils} son est\'aticos).
+
+%% ============================================================
+\section{Configuraci\'on del proyecto}
+
+\subsection{Estructura}
+\begin{minted}{text}
+Parcial/
+|-- pom.xml
+`-- src/
+    |-- main/java/org/example/Main.java
+    `-- test/java/org/example/
+        |-- StringUtilsJUnitTest.java
+        `-- StringUtilsMockitoTest.java
+\end{minted}
+
+\subsection{Dependencias en \texttt{pom.xml}}
+\begin{minted}{xml}
+<properties>
+    <maven.compiler.source>21</maven.compiler.source>
+    <maven.compiler.target>21</maven.compiler.target>
+    <junit.version>5.11.4</junit.version>
+    <mockito.version>5.14.2</mockito.version>
+</properties>
+
+<dependencies>
+    <dependency>
+        <groupId>org.apache.commons</groupId>
+        <artifactId>commons-lang3</artifactId>
+        <version>3.17.0</version>
+    </dependency>
+    <dependency>
+        <groupId>org.junit.jupiter</groupId>
+        <artifactId>junit-jupiter</artifactId>
+        <version>${junit.version}</version>
+        <scope>test</scope>
+    </dependency>
+    <dependency>
+        <groupId>org.mockito</groupId>
+        <artifactId>mockito-core</artifactId>
+        <version>${mockito.version}</version>
+        <scope>test</scope>
+    </dependency>
+    <dependency>
+        <groupId>org.mockito</groupId>
+        <artifactId>mockito-junit-jupiter</artifactId>
+        <version>${mockito.version}</version>
+        <scope>test</scope>
+    </dependency>
+</dependencies>
+
+<build>
+    <plugins>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <version>3.5.2</version>
+        </plugin>
+    </plugins>
+</build>
+\end{minted}
+
+%% ============================================================
+\newpage
+\section{Casos de prueba con JUnit 5}
+
+Archivo: \texttt{src/test/java/org/example/StringUtilsJUnitTest.java}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|x{1cm}|x{4cm}|x{8cm}|}
+\hline
+\textbf{\#} & \textbf{M\'etodo} & \textbf{Qu\'e valida} \\
+\hline
+1 & \texttt{isEmpty} & \texttt{null} y \texttt{""} devuelven \texttt{true}; espacios y texto, \texttt{false}. \\
+\hline
+2 & \texttt{isBlank} & \texttt{null}, \texttt{""} y solo espacios devuelven \texttt{true}. \\
+\hline
+3 & \texttt{capitalize} & Pone en may\'uscula la primera letra; \texttt{null}-safe. \\
+\hline
+4 & \texttt{reverse} & Invierte la cadena; \texttt{null}-safe. \\
+\hline
+5 & \texttt{join} & Une un arreglo con separador \texttt{String} o \texttt{char}. \\
+\hline
+6 & \texttt{repeat} & Repite N veces; N $\leq$ 0 devuelve \texttt{""}. \\
+\hline
+7 & \texttt{contains} & Verifica subcadena; \texttt{null} devuelve \texttt{false}. \\
+\hline
+8 & \texttt{substring} & Soporta \'indices negativos y fuera de rango. \\
+\hline
+9 & \texttt{swapCase} & Invierte mayus/minus de cada letra. \\
+\hline
+10 & \texttt{countMatches} & Cuenta ocurrencias de subcadena. \\
+\hline
+\end{tabular}
+\caption{Casos de prueba con JUnit puro}
+\end{table}
+
+\subsection{Ejemplo}
+\begin{minted}{java}
+@Test
+@DisplayName("isBlank: true para null, \"\" y solo espacios")
+void testIsBlank() {
+    assertTrue(StringUtils.isBlank(null));
+    assertTrue(StringUtils.isBlank(""));
+    assertTrue(StringUtils.isBlank("   "));
+    assertFalse(StringUtils.isBlank("a"));
+    assertFalse(StringUtils.isBlank("  a  "));
+}
+\end{minted}
+
+\begin{minted}{bash}
+mvn test -Dtest=StringUtilsJUnitTest
+\end{minted}
+
+Se ejecuta solamente la clase \texttt{StringUtilsJUnitTest}. Los 10 casos pasan sin fallos ni errores.
+
+\begin{figure}[H]
+\centering
+% \includegraphics[width=0.9\linewidth]{captura_junit.png}
+\fbox{\parbox{0.9\linewidth}{\centering \vspace{2cm} [Captura: ejecuci\'on de los 10 tests JUnit] \vspace{2cm}}}
+\caption{Resultado de los tests con JUnit puro}
+\end{figure}
+
+%% ============================================================
+\newpage
+\section{Casos de prueba con Mockito}
+
+Archivo: \texttt{src/test/java/org/example/StringUtilsMockitoTest.java}
+
+Como \texttt{StringUtils} solo expone m\'etodos est\'aticos, se usa \texttt{Mockito.mockStatic(...)} dentro de un \texttt{try-with-resources} para acotar el alcance del mock.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|x{1cm}|x{4cm}|x{8cm}|}
+\hline
+\textbf{\#} & \textbf{M\'etodo mockeado} & \textbf{Qu\'e valida} \\
+\hline
+11 & \texttt{isEmpty} & Stub devuelve \texttt{true} para entrada no vac\'ia. \\
+\hline
+12 & \texttt{isBlank} & Stub devuelve \texttt{false} para \texttt{""}. \\
+\hline
+13 & \texttt{capitalize} & Stub con \texttt{anyString()} devuelve valor fijo. \\
+\hline
+14 & \texttt{reverse} & Stub mantiene la misma cadena. \\
+\hline
+15 & \texttt{join} & Stub controla el resultado completo. \\
+\hline
+16 & \texttt{repeat} & Stub ignora el conteo real. \\
+\hline
+17 & \texttt{contains} & Stub fuerza \texttt{true} con verificaci\'on por \texttt{eq()}. \\
+\hline
+18 & \texttt{substring} & Stub devuelve un fragmento simulado. \\
+\hline
+19 & \texttt{swapCase} & Stub con \texttt{anyString()} y \texttt{verify} con \texttt{times(2)}. \\
+\hline
+20 & \texttt{countMatches} & Stub devuelve un valor fijo y verifica la llamada. \\
+\hline
+\end{tabular}
+\caption{Casos de prueba con Mockito (\texttt{MockedStatic})}
+\end{table}
+
+\subsection{Ejemplo}
+\begin{minted}{java}
+@Test
+@DisplayName("Mockito: stub de capitalize devuelve un valor fijo")
+void testMockedCapitalize() {
+    try (MockedStatic<StringUtils> mocked = mockStatic(StringUtils.class)) {
+        mocked.when(() -> StringUtils.capitalize(anyString()))
+              .thenReturn("MOCKED");
+
+        assertEquals("MOCKED", StringUtils.capitalize("cualquiera"));
+        assertEquals("MOCKED", StringUtils.capitalize("otra"));
+        mocked.verify(() -> StringUtils.capitalize(anyString()), times(2));
+    }
+}
+\end{minted}
+
+\begin{minted}{bash}
+mvn test -Dtest=StringUtilsMockitoTest
+\end{minted}
+
+Se ejecuta solamente la clase \texttt{StringUtilsMockitoTest}. Los 10 casos pasan; aparece el warning esperado del \textit{agent} de ByteBuddy al cargar din\'amicamente el \textit{inline-mock-maker} en JDK 21+.
+
+\begin{figure}[H]
+\centering
+% \includegraphics[width=0.9\linewidth]{captura_mockito.png}
+\fbox{\parbox{0.9\linewidth}{\centering \vspace{2cm} [Captura: ejecuci\'on de los 10 tests Mockito] \vspace{2cm}}}
+\caption{Resultado de los tests con Mockito}
+\end{figure}
+
+%% ============================================================
+\newpage
+\section{Ejecuci\'on}
+
+\subsection{Comando}
+\begin{minted}{bash}
+mvn test
+\end{minted}
+
+\subsection{Salida}
+\begin{minted}{text}
+[INFO] Running org.example.StringUtilsJUnitTest
+[INFO] Tests run: 10, Failures: 0, Errors: 0, Skipped: 0
+[INFO] Running org.example.StringUtilsMockitoTest
+[INFO] Tests run: 10, Failures: 0, Errors: 0, Skipped: 0
+[INFO] Results:
+[INFO] Tests run: 20, Failures: 0, Errors: 0, Skipped: 0
+[INFO] BUILD SUCCESS
+\end{minted}
+
+\begin{minted}{bash}
+mvn clean test
+\end{minted}
+
+Compilaci\'on limpia y ejecuci\'on de ambas clases en una sola corrida. Total: 20 tests, 0 fallos, 0 errores, \texttt{BUILD SUCCESS}.
+
+\begin{figure}[H]
+\centering
+% \includegraphics[width=0.9\linewidth]{captura_build.png}
+\fbox{\parbox{0.9\linewidth}{\centering \vspace{2cm} [Captura: BUILD SUCCESS con 20 tests] \vspace{2cm}}}
+\caption{Salida final de \texttt{mvn clean test}}
+\end{figure}
+
+%% ============================================================
+\newpage
+\section{Conclusiones}
+\begin{itemize}
+    \item JUnit 5 es suficiente para validar el comportamiento real de m\'etodos est\'aticos puros como los de \texttt{StringUtils}.
+    \item Mockito agrega valor cuando se necesita aislar dependencias; con \texttt{MockedStatic} es posible interceptar m\'etodos est\'aticos dentro de un \textit{scope} controlado.
+    \item Los 20 casos pasan en una sola corrida con \texttt{mvn test}.
+\end{itemize}
+
+\end{document}
